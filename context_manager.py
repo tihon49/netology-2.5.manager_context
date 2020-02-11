@@ -9,31 +9,36 @@ def read_lines(path):
     file = open (path, encoding='Latin-1')
     lines = file.readlines()
 
-    for line in lines:
-        count += 1
-    return f'в файле {count} строк(и)'
+    with open('out.txt', 'w') as out_file:
+        for line in lines:
+            line = line.strip()
+            count += 1
+            print(line)
+            out_file.write(line + '\n')
+
+        return f'\nв файле {count} строк(и)'
 
 
 
 @contextmanager
 def timer(foo):
-    start = datetime.now()
-    print(start)
-
     try:
         yield  foo
     except Exception as e:
         return f'error ==> {e}'
-    finally:
-        end = datetime.now()
-        print(end)
-        print(end - start)
-
 
 
 
 if __name__ == '__main__':
+    start = datetime.now()
+
     with timer(read_lines('test.txt')) as f:
         print(f)
-        time.sleep(2)
+    
+    end = datetime.now()
+
+    print(f'начало работы: {start}')
+    print(f'окончание работы: {end}')
+    print(f'всего времени ушло: {end - start}')
+
 
