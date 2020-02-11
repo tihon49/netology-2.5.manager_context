@@ -25,21 +25,21 @@ def func(num):
 @contextmanager
 def timer(foo):
     try:
+        start = datetime.now()
+        print(f'начало работы: {start}')
         yield  foo
     except Exception as e:
         return f'error ==> {e}'
+    finally:
+        end = datetime.now()
+        print(f'конец работы: {end}')
+        print(f'всего времени прошло: {end - start}')
 
 
 
 if __name__ == '__main__':
     number = int(input('введите число от 1 до 20 000 000, а я попробую найти его как можно быстрее: '))
-    start = datetime.now()
-    with timer(func(number)) as f:
-        print(f)
-    end = datetime.now()
 
-    print(f'начало работы: {start}')
-    print(f'окончание работы: {end}')
-    print(f'всего времени ушло: {end - start}')
-
-
+    with timer(func) as f:
+        print(f(number))
+    
