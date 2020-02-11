@@ -35,5 +35,5 @@ def timer(foo):
 if __name__ == '__main__':
     with timer(read_lines('test.txt')) as f:
         print(f)
-        time.sleep(1)
+        time.sleep(2)
 
