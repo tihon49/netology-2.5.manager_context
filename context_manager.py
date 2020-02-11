@@ -4,19 +4,21 @@ import time
 
 
 
-def read_lines(path):
+def func(num):
+    lst = [i for i in range(20000000)]
+    low = 0
+    high = len(lst) - 1
     count = 0
-    file = open (path, encoding='Latin-1')
-    lines = file.readlines()
-
-    with open('out.txt', 'w') as out_file:
-        for line in lines:
-            line = line.strip()
-            count += 1
-            print(line)
-            out_file.write(line + '\n')
-
-        return f'\nв файле {count} строк(и)'
+    while low <= high:
+        count += 1
+        mid = int((low + high) / 2)
+        ges = lst[mid]
+        if ges == num:
+            return f'\nчисло {ges} было найдено за {count} шага(ов).\n'
+        elif ges < num:
+            low = mid + 1
+        elif ges > num:
+            high = mid - 1
 
 
 
@@ -30,11 +32,10 @@ def timer(foo):
 
 
 if __name__ == '__main__':
+    number = int(input('введите число от 1 до 20 000 000, а я попробую найти его как можно быстрее: '))
     start = datetime.now()
-
-    with timer(read_lines('test.txt')) as f:
+    with timer(func(number)) as f:
         print(f)
-    
     end = datetime.now()
 
     print(f'начало работы: {start}')
